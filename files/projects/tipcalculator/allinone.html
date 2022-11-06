@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+</head>
+
+<body>
+
+    <pre>
+    <code>
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot; /&gt;
+            &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;
+            &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;
+            &lt;link href=&quot;https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&amp;display=swap&quot; 
+            rel=&quot;stylesheet&quot; /&gt;
+            &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+
+            &lt;title&gt;Tip Calculator&lt;/title&gt;
+            &lt;style&gt;
+                * {
+                    font-family: 'M PLUS Rounded 1c', Avenir Next, Helvetica, sans-serif;
+                    color: white;
+                }
+
+                body {
+                    background: #8990ec;
+                }
+
+            .wrapper {
+                    height: 525px;
+                    width: 360px;
+                    color: white;
+                    background: #272639;
+                    border-radius: 1rem;
+                    padding: 1.2rem;
+                    margin: 100px auto;
+                }
+
+                #topContainer {
+                    margin-top: 4rem;
+                }
+
+                .container {
+                    margin-top: 1.4rem;
+                }
+
+                .title {
+                    font-weight: bold;
+                    margin-bottom: 0.6rem;
+                }
+
+                .inputContainer {
+                    background: #353959;
+                    border-radius: 1.4rem;
+                    padding: 0 0.8rem;
+                    display: flex;
+                    align-items: center;
+                }
+
+                #billTotalInput,
+                #tipInput {
+                    font-size: 1.2rem;
+                    background: none;
+                    border: none;
+                    outline: none;
+                    padding: none;
+                }
+
+                .buttonContainer {
+                    background: #8990ec;
+                    display: grid;
+                    place-items: center;
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    border-radius: 50%;
+                }
+
+                .splitButton {
+                    background: none;
+                    border: none;
+                }
+
+                .controls {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .splitButton {
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    display: grid;
+                    place-items: center;
+                }
+
+                .buttonText {
+                    color: #353959 !important;
+                }
+
+                .splitAmount {
+                    font-size: 1.6rem;
+                    margin: 0.8rem;
+                }
+
+                #bottom {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .totalContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                }
+
+                .total {
+                    font-size: 2rem;
+                }
+            &lt;/style&gt;
+        &lt;/head&gt;
+
+        &lt;body&gt;
+            &lt;div class=&quot;wrapper&quot;&gt;
+                &lt;div class=&quot;container&quot; id=&quot;topContainer&quot;&gt;
+                    &lt;div class=&quot;title&quot;&gt;Bill total&lt;/div&gt;
+                    &lt;div class=&quot;inputContainer&quot;&gt;
+                        &lt;span&gt;$&lt;/span&gt;
+                        &lt;input onkeyup=&quot;calculateBill()&quot; type=&quot;text&quot; id=&quot;billTotalInput&quot;
+                         placeholder=&quot;0.00&quot; /&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;container&quot;&gt;
+                    &lt;div class=&quot;title&quot;&gt;Tip&lt;/div&gt;
+                    &lt;div class=&quot;inputContainer&quot;&gt;
+                        &lt;span&gt;%&lt;/span&gt;
+                        &lt;input onkeyup=&quot;calculateBill()&quot; type=&quot;text&quot; id=&quot;
+                        tipInput&quot; placeholder=&quot;10&quot; /&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;container&quot; id=&quot;bottom&quot;&gt;
+                    &lt;div class=&quot;splitContainer&quot;&gt;
+                        &lt;div class=&quot;title&quot;&gt;People&lt;/div&gt;
+                        &lt;div class=&quot;controls&quot;&gt;
+                            &lt;span class=&quot;buttonContainer&quot;&gt;
+                                &lt;button class=&quot;splitButton&quot; onclick=&quot;increasePeople()&quot;&gt;
+                                    &lt;span class=&quot;buttonText&quot;&gt;+&lt;/span&gt;
+                                &lt;/button&gt;
+                            &lt;/span&gt;
+                            &lt;span class=&quot;splitAmount&quot; id=&quot;numberOfPeople&quot;&gt;1&lt;/span&gt;
+                            &lt;span class=&quot;buttonContainer&quot;&gt;
+                                &lt;button class=&quot;splitButton&quot; onclick=&quot;decreasePeople()&quot;&gt;
+                                    &lt;span class=&quot;buttonText&quot;&gt;-&lt;/span&gt;
+                                &lt;/button&gt;
+                            &lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;totalContainer&quot;&gt;
+                        &lt;div class=&quot;title&quot;&gt;Total per Person&lt;/div&gt;
+                        &lt;div class=&quot;total&quot; id=&quot;perPersonTotal&quot;&gt;$0.00&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;script&gt;
+                /* 
+        🌟 APP: Tip Calculator
+
+        These are the 3 functions you must use 👇
+        =========================================
+        calculateBill()
+        increasePeople()
+        decreasePeople()
+
+        These functions are hard coded in the HTML. So, you can't change their names.
+
+        These are all the DIV ID's you're gonna need access to 👇
+        ========================================================
+        #1 ID 👉 'billTotalInput' = User input for bill total
+        #2 ID 👉 'tipInput' = User input for tip
+        #3 ID 👉 'numberOfPeople' = Current number of people you're splitting the bill between
+        #4 ID 👉 'perPersonTotal' = Total dollar value owed per person
+        */
+                billInput = document.getElementById('billTotalInput')
+                tipInput = document.getElementById('tipInput')
+                numberOfPeopleDiv = document.getElementById('numberOfPeople')
+                perPersonTotalDiv = document.getElementById('perPersonTotal')
+
+
+                // Get global access to all inputs / divs here (you'll need them later 😘)
+                // bill input, tip input, number of people div, and per person total div
+
+
+
+                // Get number of people from number of people div
+                let numberOfPeople = Number(numberOfPeopleDiv.innerText)
+
+
+                // ** Calculate the total bill per person **
+                const calculateBill = () =&gt; {
+                    // get bill from user input &amp; convert it into a number
+                    let bill = Number(billInput.value)
+
+
+
+                    // get the tip from user &amp; convert it into a percentage (divide by 100)
+                    const tipPercentage = Number(tipInput.value) / 100
+                    console.log(tipPercentage)
+
+                    // get the total tip amount
+
+                    const tipAmount = bill * tipPercentage
+                    console.log({ tipAmount })
+
+
+                    // calculate the total (tip amount + bill)
+                    let totalAmount = tipAmount + bill
+                    console.log({ totalAmount })
+
+
+                    // calculate the per person total (total divided by number of people)
+                    const perPersonTotal = totalAmount / numberOfPeople
+                    console.log({ perPersonTotal })
+
+
+                    // update the perPersonTotal on DOM &amp; show it to user
+                    perPersonTotalDiv.innerText = `$${perPersonTotal.toFixed(1)}`
+
+                }
+
+                // ** Splits the bill between more people **
+                const increasePeople = () =&gt; {
+                    // increment the amount of people
+                    numberOfPeople += 1
+
+
+                    // update the DOM with the new number of people
+                    numberOfPeopleDiv.innerText = numberOfPeople
+
+
+                    // calculate the bill based on the new number of people
+
+                    calculateBill()
+                }
+
+                // ** Splits the bill between fewer people **
+                const decreasePeople = () =&gt; {
+                    // guard clause
+                    if (numberOfPeople &lt;= 1) {
+                        return
+            
+                    }
+                    // if amount is 1 or less simply return
+                    // (a.k.a you can't decrease the number of people to 0 or negative!)
+
+
+
+                    // decrement the amount of people
+                    numberOfPeople -= 1
+
+                    // update the DOM with the new number of people
+                    numberOfPeopleDiv.innerText = numberOfPeople
+
+
+                    // calculate the bill based on the new number of people
+                    calculateBill()
+
+                }
+            &lt;/script&gt;
+        &lt;/body&gt;
+
+        &lt;/html&gt;
+
+    </code>
+</pre>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+
+
+</body>
+
+</html>
